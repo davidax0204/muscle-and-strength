@@ -5,43 +5,38 @@ btn.addEventListener("click",async ()=>{
   chrome.scripting.executeScript({
       target:{tabId:tab.id},
       func:()=>{
-
         var viewMoreButton = document.getElementsByClassName("view-more")[0]
 
-        if(viewMoreButton.getAttribute("style")!='display: none;'){
+        if(viewMoreButton && viewMoreButton?.getAttribute("style")!='display: none;' && !viewMoreButton?.childNodes[0]?.textContent.includes("View Next 0 Products")){
             viewMoreButton.click()
         }
 
         var interval = setInterval(()=>{
             viewMoreButton = document.getElementsByClassName("view-more")[0]
-        
-            if(viewMoreButton.getAttribute("style")!='display: none;'){
+
+            if(viewMoreButton && viewMoreButton?.getAttribute("style")!='display: none;' && !viewMoreButton?.childNodes[0]?.textContent.includes("View Next 0 Products")){
                 viewMoreButton.click()
             }
             else{
-                var ankers = document.getElementsByClassName("image-wrap box-image")
+                var names = document.getElementsByClassName("product-name")
+                var list=[];
+        
+                Array.prototype.forEach.call(names, child => {
+                if(child.nodeName=='A' && child.textContent.includes("Exp")){
+                    list.push(child.parentNode.parentNode.parentNode)
+                }
+                });
+        
+                var container = document.getElementsByClassName("grid-products-wrapper")[0]
+                container.innerHTML=""
 
-                Array.prototype.forEach.call(ankers, child => {
-                    if(child.getAttribute("title").includes("(Exp"))
-                    child.parentNode.parentNode.remove()
-                  });
+                list.forEach(el=>{
+                    container.appendChild(el)
+                })
 
                 clearInterval(interval)
             }
         },1000)
-
-
-
-        //   console.log(viewMoreButton)
-          const res = 1;
-          return res;
-      }
-  }).then((result)=>{
-    //   result[0].result; //
+    }
   })
 })
-
-function getExpiredProducts(){
-    var ankers = document.getElementsByClassName("image-wrap box-image")
-    console.log(ankers)
-}
