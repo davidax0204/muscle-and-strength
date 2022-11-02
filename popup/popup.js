@@ -22,7 +22,7 @@ btn.addEventListener("click",async ()=>{
                 var list=[];
         
                 Array.prototype.forEach.call(names, child => {
-                if(child.nodeName=='A' && child.textContent.includes("Exp")){
+                if(child.nodeName=='A' && child.textContent.includes("(Exp.")){
                     list.push(child.parentNode.parentNode.parentNode)
                 }
                 });
