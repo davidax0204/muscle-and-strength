@@ -1,10 +1,16 @@
 {
-    "name": "BCAAFInder",
+    "name": "Muscle & Strength Analyzer",
     "description": "Build an Extension!",
     "version": "0.0.0.1",
     "manifest_version": 3,
-    "permissions": ["activeTab","scripting"],
+    "permissions": ["activeTab","scripting","favicon"],
     "action": {
         "default_popup": "./popup/popup.html"
-      }
+    },
+    "icons": {
+        "16": "icon.png",
+        "32": "icon.png",
+        "48": "icon.png",
+        "128": "icon.png"
+    }
   }
